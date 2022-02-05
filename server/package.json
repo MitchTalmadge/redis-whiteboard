@@ -1,0 +1,22 @@
+{
+  "name": "whiteboard-server",
+  "description": "Redis whiteboard server",
+  "authors": "Mitch Talmadge <mitch@mitchtalmadge.com>",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "nodemon --legacy-watch src/server.ts"
+  },
+  "nodemonConfig": {
+    "watch": ["src"]
+  },
+  "dependencies": {
+    "express": "4.17.2",
+    "redis": "4.0.3",
+    "socket.io": "4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.15",
+    "ts-node": "10.4.0",
+    "typescript": "4.5.5"
+  }
+}
