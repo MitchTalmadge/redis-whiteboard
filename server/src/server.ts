@@ -21,6 +21,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Socket disconnected (id: " + socket.id + ")");
   });
+
+  socket.on("mousemove", (data) => {
+    socket.broadcast.emit("mousemove", data);
+  });
 });
 
 app.get("/", (req, res) => {
