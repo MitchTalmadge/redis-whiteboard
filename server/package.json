@@ -10,6 +10,7 @@
     "watch": ["src"]
   },
   "dependencies": {
+    "@node-redis/json": "1.0.2",
     "express": "4.17.2",
     "redis": "4.0.3",
     "socket.io": "4.4.1"

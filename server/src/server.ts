@@ -21,6 +21,17 @@ import { createClient } from 'redis';
 
   const publisher = client.duplicate();
   await publisher.connect();
+  if(!(await publisher.exists('test'))) {
+    await publisher.json.set('test', '$', {
+      creator: id,
+      touchers: [
+        id
+      ]
+    })
+  } else {
+    await publisher.json.ARRAPPEND('test', '$.touchers', id);
+  }
+  console.log(await publisher.json.get('test'));
   setInterval(() => {
     publisher.publish('room-1', 'Hello from ' + id);
   }, 1000 + Math.floor(Math.random() * 1000));

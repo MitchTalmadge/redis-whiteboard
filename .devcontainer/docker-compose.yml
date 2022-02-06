@@ -13,5 +13,5 @@ services:
     network_mode: service:redis
 
   redis:
-    image: redis
+    image: redislabs/rejson
     restart: unless-stopped
