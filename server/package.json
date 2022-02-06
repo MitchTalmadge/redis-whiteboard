@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@node-redis/json": "1.0.2",
+    "cors": "2.8.5",
     "express": "4.17.2",
     "redis": "4.0.3",
     "socket.io": "4.4.1"

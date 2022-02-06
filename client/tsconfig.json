@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "es5",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "sourceRoot": "src",
     "inlineSourceMap": true,

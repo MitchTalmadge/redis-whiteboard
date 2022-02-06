@@ -1,5 +1,30 @@
+import * as express from 'express';
+import * as socketio from "socket.io";
 import { createClient } from 'redis';
+import cors = require("cors");
 
+
+
+const app = express();
+app.use(cors());
+const server = app.listen(9000, () => {
+  console.log('Server listening on port 9000');
+});
+
+const io = new socketio.Server(server, {
+  cors: {
+    origin: '*',
+  },
+  serveClient: false,
+});
+io.on('connection', (socket) => {
+  console.log("Socket connected (id: " + socket.id + ")");
+})
+
+app.get('/', (req, res) => {
+  res.send("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧")
+});
+/* 
 (async () => {
   // Generate random id between 1 and 100
   const id = Math.floor(Math.random() * 100) + 1;
@@ -36,3 +61,4 @@ import { createClient } from 'redis';
     publisher.publish('room-1', 'Hello from ' + id);
   }, 1000 + Math.floor(Math.random() * 1000));
 })();
+ */

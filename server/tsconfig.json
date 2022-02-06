@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs"
+    "module": "commonjs",
+    "sourceRoot": "src",
+    "inlineSourceMap": true,
   },
   "exclude": [
     "node_modules"
