@@ -1,5 +1,5 @@
 {
-  "name": "whiteboard-server",
+  "name": "redis-whiteboard-server",
   "description": "Redis whiteboard server",
   "authors": "Mitch Talmadge <mitch@mitchtalmadge.com>",
   "version": "1.0.0",
