@@ -22,6 +22,19 @@ const config: webpack.Configuration = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.(sc|sa|c)ss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+          'sass-loader',
+        ],
+      }
     ]
   },
   resolve: {

@@ -5,10 +5,14 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "sourceRoot": "src",
-    "inlineSourceMap": true,
+    "inlineSourceMap": true
   },
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "webpack.ts",
+    "src/**/*"
   ],
   "ts-node": {
     "compilerOptions": {

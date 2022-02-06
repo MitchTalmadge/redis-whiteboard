@@ -8,8 +8,8 @@ interface SocketContextValue {
 const socketContext = createContext<SocketContextValue>({
   socket: null,
 });
-const useSocketContext = () => useContext(socketContext);
-const useSocket = () => useSocketContext().socket;
+export const useSocketContext = () => useContext(socketContext);
+export const useSocket = () => useSocketContext().socket;
 
 export const SocketContext: FC = (props) => {
 
@@ -20,9 +20,15 @@ export const SocketContext: FC = (props) => {
       console.log("Connected to server (id: " + socket.id + ")");
       setSocket(socket);
     }
+    const onDisconnect = () => {
+      console.log("Disconnected from server");
+      setSocket(null);
+    }
     socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
     return () => {
       socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
     }
   }, []);
 

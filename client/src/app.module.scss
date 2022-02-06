@@ -1,0 +1,25 @@
+.app {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  width: 100%;
+
+  background-image: url("./assets/bg.png");
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  h1 {
+    margin: 0;
+  }
+
+  .header {
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    width: 33%;
+
+    background-color: white;
+    box-shadow: 0 0 10px -4px black;
+  }
+}

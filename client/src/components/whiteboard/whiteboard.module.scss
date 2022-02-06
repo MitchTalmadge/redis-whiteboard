@@ -1,0 +1,17 @@
+.whiteboard {
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 0 10px -4px black;
+
+  > canvas {
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    cursor: crosshair;
+  }
+}

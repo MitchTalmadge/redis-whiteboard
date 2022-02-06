@@ -1,28 +1,30 @@
-import * as express from 'express';
+import * as express from "express";
 import * as socketio from "socket.io";
-import { createClient } from 'redis';
+import { createClient } from "redis";
 import cors = require("cors");
-
-
 
 const app = express();
 app.use(cors());
 const server = app.listen(9000, () => {
-  console.log('Server listening on port 9000');
+  console.log("Server listening on port 9000");
 });
 
 const io = new socketio.Server(server, {
   cors: {
-    origin: '*',
+    origin: "*",
   },
   serveClient: false,
 });
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log("Socket connected (id: " + socket.id + ")");
-})
 
-app.get('/', (req, res) => {
-  res.send("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧")
+  socket.on("disconnect", () => {
+    console.log("Socket disconnected (id: " + socket.id + ")");
+  });
+});
+
+app.get("/", (req, res) => {
+  res.send("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧");
 });
 /* 
 (async () => {
