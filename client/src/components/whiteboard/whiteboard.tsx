@@ -24,7 +24,7 @@ export const Whiteboard = () => {
     const time = Date.now();
     if (time - lastMouseReportTime >= 100) {
       setLastMouseReportTime(time);
-      socket.emit("mousemove", {
+      socket?.emit("mousemove", {
         x: e.clientX,
         y: e.clientY,
       });

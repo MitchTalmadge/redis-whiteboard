@@ -1,4 +1,5 @@
-import {createContext, FC, useContext, useEffect, useState} from 'react';
+import axios from "axios";
+import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 interface SocketContextValue {
@@ -15,7 +16,6 @@ export const SocketContext: FC = (props) => {
 
   const [socket, setSocket] = useState<Socket | null>(null);
   useEffect(() => {
-    const socket = io("http://localhost:9000");
     const onConnect = () => {
       console.log("Connected to server (id: " + socket.id + ")");
       setSocket(socket);
@@ -24,17 +24,31 @@ export const SocketContext: FC = (props) => {
       console.log("Disconnected from server");
       setSocket(null);
     }
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
+    let socket: Socket = null;
+
+    axios.get("http://localhost:9000/load-balance")
+      .then(val => {
+        console.log("Connecting to server " + val.data);
+        socket = io(val.data);
+
+        socket.on('connect', onConnect);
+        socket.on('disconnect', onDisconnect);
+      })
+      .catch(err => {
+        console.error("Load Balance error:", err);
+      });
+
     return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
+      if (socket) {
+        socket.off('connect', onConnect);
+        socket.off('disconnect', onDisconnect);
+      }
     }
   }, []);
 
   return (
     <socketContext.Provider
-      value={{socket}}>
+      value={{ socket }}>
       {props.children}
     </socketContext.Provider>
   );

@@ -10,7 +10,7 @@ export const App = () => {
     <div className={appStyles.app}>
       <div className={appStyles.header}>
         <h1>Redis Whiteboard</h1>
-        <p>{socket ? `Connected to server (id: ${socket.id})` : "Disconnected from server"}</p>
+        <p>{socket ? `Connected (id: ${socket.id})` : "Disconnected"}</p>
       </div>
       <Whiteboard />
     </div>

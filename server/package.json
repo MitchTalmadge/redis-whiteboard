@@ -4,19 +4,26 @@
   "authors": "Mitch Talmadge <mitch@mitchtalmadge.com>",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon --legacy-watch src/server.ts"
+    "start1": "nodemon --legacy-watch src/server.ts 9000",
+    "start2": "nodemon --legacy-watch src/server.ts 9001"
   },
   "nodemonConfig": {
-    "watch": ["src"]
+    "watch": [
+      "src"
+    ]
   },
   "dependencies": {
     "@node-redis/json": "1.0.2",
+    "@socket.io/redis-adapter": "^7.1.0",
     "cors": "2.8.5",
     "express": "4.17.2",
     "redis": "4.0.3",
+    "rxjs": "7.5.2",
     "socket.io": "4.4.1"
   },
   "devDependencies": {
+    "@types/express": "4.17.13",
+    "@types/node": "17.0.15",
     "nodemon": "2.0.15",
     "ts-node": "10.4.0",
     "typescript": "4.5.5"
