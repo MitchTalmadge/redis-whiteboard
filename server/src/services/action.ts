@@ -3,6 +3,7 @@ import { ClientSocketMessage } from "../../../common/src/model/socket/message";
 import { nanoid } from "nanoid";
 import { SocketController } from "../controllers/socket";
 import { SocketSource } from "../model/socket/socket-source";
+import { StateService } from "./state";
 
 export class ActionService {
   private static instance: ActionService;
@@ -65,6 +66,8 @@ export class ActionService {
 
         const action = this.inProgressPathAdds[source.socketId];
         delete this.inProgressPathAdds[source.socketId];
+
+        await StateService.getInstance().applyAction(source.room, action);
 
         SocketController.getInstance().sendMessageToRoom(source.room, {
           event: "path-end",

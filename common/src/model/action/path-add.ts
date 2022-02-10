@@ -1,4 +1,6 @@
-export interface PathAddAction {
+import { AbstractAction } from "./action";
+
+export interface PathAddAction extends AbstractAction {
   type: "path-add";
   itemId: string;
   segments: { x: number; y: number }[];
