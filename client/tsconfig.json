@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es5",
+    "lib": [
+      "ESNext",
+      "dom"
+    ],
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "sourceRoot": "src",
@@ -13,6 +17,11 @@
   "include": [
     "webpack.ts",
     "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../common/tsconfig.json"
+    }
   ],
   "ts-node": {
     "compilerOptions": {

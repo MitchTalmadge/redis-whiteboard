@@ -1,13 +1,18 @@
 import axios from "axios";
-import { createContext, FC, useContext, useEffect, useState } from 'react';
+import { createContext, FC, useCallback, useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import { ClientSocketMessage, ServerSocketMessage } from '../../../common/src/model/socket/message';
 
 interface SocketContextValue {
   socket: Socket;
+  sendMessage: (message: ClientSocketMessage) => void;
+  onMessage: (cb: (message: ServerSocketMessage) => void) => void;
 }
 
 const socketContext = createContext<SocketContextValue>({
   socket: null,
+  sendMessage: null,
+  onMessage: null
 });
 export const useSocketContext = () => useContext(socketContext);
 export const useSocket = () => useSocketContext().socket;
@@ -46,9 +51,21 @@ export const SocketContext: FC = (props) => {
     }
   }, []);
 
+  const sendMessage = useCallback((message: ClientSocketMessage) => {
+    if (socket) {
+      socket.emit('message', message);
+    }
+  }, [socket]);
+
+  const onMessage = useCallback((cb: (message: ServerSocketMessage) => void) => {
+    if (socket) {
+      socket.on('message', cb);
+    }
+  }, [socket]);
+
   return (
     <socketContext.Provider
-      value={{ socket }}>
+      value={{ socket, sendMessage, onMessage }}>
       {props.children}
     </socketContext.Provider>
   );

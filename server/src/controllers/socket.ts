@@ -1,8 +1,14 @@
 import { createAdapter } from "@socket.io/redis-adapter";
 import * as socketio from "socket.io";
+import { RoomService } from "../services/room";
 import { HttpController } from "./http";
 import { RedisController } from "./redis";
 import { Controller } from "./_controller";
+import {
+  ClientSocketMessage,
+  ServerSocketMessage,
+} from "../../../common/src/model/socket/message";
+import { ActionService } from "../services/action";
 
 export class SocketController extends Controller {
   private static instance: SocketController;
@@ -54,13 +60,37 @@ export class SocketController extends Controller {
     const room = "room1";
 
     socket.join(room);
+    RoomService.getInstance().joinSocketToRoom(socket.id, room);
 
     socket.on("disconnect", () => {
       console.log("Socket disconnected (id: " + socket.id + ")");
+      RoomService.getInstance().removeSocketFromRoom(socket.id, room);
     });
 
-    socket.on("mousemove", (data) => {
-      socket.to(room).emit("mousemove", data);
+    socket.on("message", (message: any) => {
+      if (!message.event) {
+        console.error("Malformed socket message; missing event.");
+        return;
+      }
+      if (!message.data) {
+        console.error("Malformed socket message; missing data.");
+        return;
+      }
+
+      const typedMessage = message as ClientSocketMessage;
+      ActionService.getInstance()
+        .processSocketMessage({ socketId: socket.id, room }, typedMessage)
+        .catch((err) => {
+          console.error("Error processing socket message:", err);
+        });
     });
+  }
+
+  public sendMessageToSocket(socketId: string, message: ServerSocketMessage) {
+    this.socketServer.sockets.sockets.get(socketId).emit("message", message);
+  }
+
+  public sendMessageToRoom(room: string, message: ServerSocketMessage) {
+    this.socketServer.to(room).emit("message", message);
   }
 }

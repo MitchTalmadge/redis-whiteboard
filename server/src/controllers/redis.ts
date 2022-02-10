@@ -1,6 +1,7 @@
 import * as redis from "redis";
 import { Controller } from "./_controller";
 import { Observable, Observer } from "rxjs";
+import { RedisJSON } from "@node-redis/json/dist/commands";
 
 export class RedisController extends Controller {
   private static instance: RedisController;
@@ -90,5 +91,29 @@ export class RedisController extends Controller {
         }
       };
     });
+  }
+
+  public async setJson(
+    key: string,
+    path: string,
+    value: RedisJSON
+  ): Promise<void> {
+    await this.publisher.json.set(key, path, value);
+  }
+
+  public async delJson(key: string, path: string = "$"): Promise<void> {
+    await this.publisher.json.del(key, path);
+  }
+
+  public async appendJson(
+    key: string,
+    path: string,
+    ...values: any[]
+  ): Promise<void> {
+    await this.publisher.json.arrAppend(key, path, ...values);
+  }
+
+  public async popJson(key: string, path: string): Promise<any> {
+    return await this.publisher.json.arrPop(key, path);
   }
 }

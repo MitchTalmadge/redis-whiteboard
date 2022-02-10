@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "sourceRoot": "src",
     "inlineSourceMap": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "sourceRoot": "src",
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
     "src/**/*"
+  ],
+  "references": [
+    { "path": "../common/tsconfig.json" }
   ]
 }
