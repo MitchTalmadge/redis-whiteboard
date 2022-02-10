@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSocketContext } from "../../context/socket";
 import whiteboardStyles from './whiteboard.module.scss';
 import { PaperScope, Path, Point, Size } from "paper/dist/paper-core";
+import * as paper from "paper";
 import { useAsRef } from "../../hooks/ref";
 
 export const Whiteboard = () => {
@@ -56,7 +57,7 @@ export const Whiteboard = () => {
           y: event.point.y,
           closed: false,
           strokeCap: 'round',
-          strokeColor: 'blue',
+          strokeColor: [paper.Color.random().components[0], paper.Color.random().components[1], paper.Color.random().components[2]],
           strokeWidth: 10
         }
       });
@@ -121,7 +122,9 @@ export const Whiteboard = () => {
             return;
           }
           path.add(new Point(message.data.x, message.data.y));
-          path.smooth();
+          path.smooth({
+            type: 'continuous'
+          });
           break;
         }
         case 'path-end': {
@@ -131,7 +134,9 @@ export const Whiteboard = () => {
             return;
           }
           path.add(new Point(message.data.x, message.data.y));
-          path.smooth();
+          path.smooth({
+            type: 'continuous'
+          });
           break;
         }
       }

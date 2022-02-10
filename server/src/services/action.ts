@@ -1,4 +1,4 @@
-import { PathAddAction } from "../../../common/src/model/action/path";
+import { PathAddAction } from "../../../common/src/model/action/path-add";
 import { ClientSocketMessage } from "../../../common/src/model/socket/message";
 import { nanoid } from "nanoid";
 import { SocketController } from "../controllers/socket";

@@ -8,7 +8,7 @@ export interface PathStartServerMessage extends AbstractSocketMessage {
     y: number;
     closed: boolean;
     strokeCap: string;
-    strokeColor: string;
+    strokeColor: [number, number, number];
     strokeWidth: number;
   };
 }
