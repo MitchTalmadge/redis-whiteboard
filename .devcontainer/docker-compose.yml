@@ -2,11 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-      args:
-        VARIANT: 16-buster
+    image: ghcr.io/mitchtalmadge/dev
     volumes:
       - ..:/workspace:cached
     command: sleep infinity
