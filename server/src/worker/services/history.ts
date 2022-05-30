@@ -1,5 +1,5 @@
-import { HistoryItem } from "../../../common/src/model/history/history-item";
-import { RedisController } from "../controllers/redis";
+import { HistoryItem } from "../../../../common/src/model/history/history-item";
+import { RedisController } from "../../controllers/redis";
 
 export class HistoryService {
   private static instance: HistoryService;

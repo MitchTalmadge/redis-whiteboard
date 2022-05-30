@@ -7,17 +7,22 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "outDir": "dist",
     "skipLibCheck": true,
     "sourceRoot": "src",
     "target": "ESNext",
   },
   "exclude": [
-    "node_modules"
+    "**/node_modules", 
+    "**/.*/"
   ],
   "include": [
     "src/**/*"
   ],
   "references": [
     { "path": "../common/tsconfig.json" }
-  ]
+  ],
+  "ts-node": {
+    "swc": true,
+  }
 }

@@ -4,6 +4,7 @@
   "authors": "Mitch Talmadge <https://MitchTalmadge.com/>",
   "version": "1.0.0",
   "scripts": {
+    "build": "tsc -p ../common/tsconfig.json && tsc",
     "start:dev": "nodemon --legacy-watch src/main.ts 9000"
   },
   "nodemonConfig": {
@@ -22,6 +23,7 @@
     "socket.io": "^4.5.1"
   },
   "devDependencies": {
+    "@swc/core": "^1.2.194",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.36",
     "nodemon": "^2.0.16",

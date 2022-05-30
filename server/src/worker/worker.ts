@@ -10,7 +10,6 @@ import { WorkerMessage } from "./model/worker/worker-message";
 
     switch(message.type) {
       case 'socket':
-        
       break;
     }
   });

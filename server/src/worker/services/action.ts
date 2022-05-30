@@ -1,7 +1,7 @@
-import { PathAddAction } from "../../../common/src/model/action/path-add";
-import { ClientSocketMessage } from "../../../common/src/model/socket/message";
+import { PathAddAction } from "../../../../common/src/model/action/path-add";
+import { ClientSocketMessage } from "../../../../common/src/model/socket/message";
 import { nanoid } from "nanoid";
-import { SocketController } from "../controllers/socket";
+import { SocketController } from "../../controllers/socket";
 import { SocketSource } from "../model/socket/socket-source";
 import { StateService } from "./state";
 
