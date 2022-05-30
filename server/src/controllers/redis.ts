@@ -1,12 +1,12 @@
-import * as redis from "redis";
+import { createClient } from "redis";
 import { Controller } from "./_controller";
 import { Observable, Observer } from "rxjs";
 import { RedisJSON } from "@node-redis/json/dist/commands";
 
 export class RedisController extends Controller {
   private static instance: RedisController;
-  private publisher: ReturnType<typeof redis.createClient>;
-  private subscriber: ReturnType<typeof redis.createClient>;
+  private publisher: ReturnType<typeof createClient>;
+  private subscriber: ReturnType<typeof createClient>;
   private subscriptions: {
     [channel: string]: Observer<string>[];
   } = {};
@@ -23,7 +23,7 @@ export class RedisController extends Controller {
   }
 
   public async init() {
-    this.publisher = redis.createClient();
+    this.publisher = createClient();
     this.publisher.on("error", (err) => {
       console.error("Redis client error:", err);
     });

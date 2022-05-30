@@ -4,7 +4,7 @@
   "authors": "Mitch Talmadge <mitch@mitchtalmadge.com>",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack serve --config webpack.ts"
+    "build:dev:serve": "webpack serve --config webpack.ts"
   },
   "dependencies": {
     "axios": "0.25.0",

@@ -1,6 +1,6 @@
 import { RedisController } from "../controllers/redis";
-import { Action } from "../../../common/src/model/action/action";
-import { PathStateItem } from "../../../common/src/model/state/item/path";
+import { Action } from "../../../../common/src/model/action/action";
+import { PathStateItem } from "../../../../common/src/model/state/item/path";
 
 export class StateService {
   private static instance: StateService;

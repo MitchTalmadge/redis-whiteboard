@@ -1,14 +1,13 @@
 import { createAdapter } from "@socket.io/redis-adapter";
-import * as socketio from "socket.io";
-import { RoomService } from "../services/room";
+import socketio from "socket.io";
 import { HttpController } from "./http";
-import { RedisController } from "./redis";
 import { Controller } from "./_controller";
 import {
   ClientSocketMessage,
   ServerSocketMessage,
 } from "../../../common/src/model/socket/message";
-import { ActionService } from "../services/action";
+import { RedisController } from "./redis";
+import { SocketService } from "../services/socket";
 
 export class SocketController extends Controller {
   private static instance: SocketController;
@@ -51,38 +50,26 @@ export class SocketController extends Controller {
   private listenForSockets() {
     this.socketServer.on("connection", (socket) => {
       console.log("Socket connected (id: " + socket.id + ")");
-      this.handleSocket(socket);
-    });
-  }
+      SocketService.getInstance().handleSocketConnect(socket);
 
-  private handleSocket(socket: socketio.Socket) {
-    // TODO: configurable room
-    const room = "room1";
+      socket.on('disconnect', () => {
+        console.log("Socket disconnected (id: " + socket.id + ")");
+        SocketService.getInstance().handleSocketDisconnect(socket);
+      })
 
-    socket.join(room);
-    RoomService.getInstance().joinSocketToRoom(socket.id, room);
-
-    socket.on("disconnect", () => {
-      console.log("Socket disconnected (id: " + socket.id + ")");
-      RoomService.getInstance().removeSocketFromRoom(socket.id, room);
-    });
-
-    socket.on("message", (message: any) => {
-      if (!message.event) {
-        console.error("Malformed socket message; missing event.");
-        return;
-      }
-      if (!message.data) {
-        console.error("Malformed socket message; missing data.");
-        return;
-      }
-
-      const typedMessage = message as ClientSocketMessage;
-      ActionService.getInstance()
-        .processSocketMessage({ socketId: socket.id, room }, typedMessage)
-        .catch((err) => {
-          console.error("Error processing socket message:", err);
-        });
+      socket.on("message", (message: any) => {
+        if (!message.event) {
+          console.error("Malformed socket message; missing event.");
+          return;
+        }
+        if (!message.data) {
+          console.error("Malformed socket message; missing data.");
+          return;
+        }
+  
+        const typedMessage = message as ClientSocketMessage;
+        SocketService.getInstance().handleSocketMessage(socket, typedMessage);
+      });
     });
   }
 

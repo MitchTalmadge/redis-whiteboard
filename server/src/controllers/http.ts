@@ -1,5 +1,5 @@
-import * as express from "express";
-import cors = require("cors");
+import express from "express";
+import cors from 'cors';
 import { Server } from "http";
 import { Controller } from "./_controller";
 

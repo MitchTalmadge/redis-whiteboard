@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "inlineSourceMap": true,
+    "lib": ["ESNext"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "skipLibCheck": true,
     "sourceRoot": "src",
+    "target": "ESNext",
   },
   "exclude": [
     "node_modules"
