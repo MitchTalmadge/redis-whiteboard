@@ -4,7 +4,7 @@
   "authors": "Mitch Talmadge <mitch@mitchtalmadge.com>",
   "version": "1.0.0",
   "scripts": {
-    "start1": "nodemon --legacy-watch src/server.ts 9000",
+    "start": "nodemon --legacy-watch src/server.ts 9000",
     "start2": "nodemon --legacy-watch src/server.ts 9001"
   },
   "nodemonConfig": {
