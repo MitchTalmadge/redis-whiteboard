@@ -1,7 +1,7 @@
 import path from "node:path";
 import { Worker } from 'node:worker_threads';
 import { ClientSocketMessage } from "../../../common/src/model/socket/message";
-import { WorkerSocketMessage } from "../worker/model/worker/worker-message";
+import { ClientActionWorkerMessage } from "../worker/model/worker/worker-message";
 
 export class WorkerService {
   private static instance: WorkerService;
@@ -35,8 +35,8 @@ export class WorkerService {
   }
 
   public forwardSocketMessage(workerId: number, socketId: string, message: ClientSocketMessage) {
-    const workerMessage: WorkerSocketMessage = {
-      type: "socket",
+    const workerMessage: ClientActionWorkerMessage = {
+      type: "client-action",
       socketId: socketId,
       message
     };

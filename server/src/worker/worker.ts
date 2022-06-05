@@ -1,4 +1,5 @@
 import { parentPort, workerData } from 'node:worker_threads';
+import { ClientActionController } from "./controllers/client-action";
 import { WorkerMessage } from "./model/worker/worker-message";
 
 (() => {
@@ -9,7 +10,8 @@ import { WorkerMessage } from "./model/worker/worker-message";
     console.log(`[W${workerId}] Received message:`, message);
 
     switch(message.type) {
-      case 'socket':
+      case 'client-action':
+        ClientActionController.getInstance().onClientAction(message.message);
       break;
     }
   });
